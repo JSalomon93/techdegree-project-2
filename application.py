@@ -1,3 +1,4 @@
+from __future__ import print_function
 from distutils.command.clean import clean
 from multiprocessing.sharedctypes import Value
 import constants
@@ -5,6 +6,7 @@ import copy
 import os
 from constants import PLAYERS, TEAMS
 from copy import deepcopy
+
 
 
 
@@ -32,7 +34,7 @@ def clean_data():
             player ["guardians"] = player["guardians"].split(" and ")
             player["experience"] = True
     
-clean_data()
+
 
 def assign_team():
     count = 0
@@ -51,7 +53,7 @@ def assign_team():
             warriors.append(player)
             count += 1
 
-assign_team()
+
 
 def team_selection():
     print("\nWhich team would you like to view the stats for?")
@@ -111,20 +113,27 @@ def select_team_1(panthers):
     for key in panthers:
         names.append(key["name"])
 
-
     for key in panthers:
         guardians.append(key["guardians"])
 
     sum_height = sum(height)
     avg_height = round(sum_height / 6, 2)
+
+    guardians_fixed = str(guardians)
+    guardians_fixed = guardians_fixed.replace("[","")
+    guardians_fixed = guardians_fixed.replace("]", "")
+    guardians_fixed = guardians_fixed.replace("'", "")
+    guardians_fixed = guardians_fixed.replace("'", "")
     
     print("*" * 60)
     print(f"Team Name: {team_name_panthers}")
     print(f"There are {num_players} players on the team")
     print(f"There are {len(num_exper)} experienced players and {len(num_inexper)} inexperienced players")
     print(f"The average height on the team is: {avg_height}")
-    print(f"\nThe names of the players are: {names}")
-    print(f"The guardians on the players are: {guardians}\n\n")
+    print("\nThe names of the players are: \n{}".format(", ".join(names)))
+    print("\nThe players guardians names are: ")
+    print(guardians_fixed)
+
 
     print("""
     Please select an option:
@@ -182,14 +191,21 @@ def select_team_2(bandits):
     sum_height = sum(height)
     avg_height = round(sum_height / 6, 2)
 
+    guardians_fixed = str(guardians)
+    guardians_fixed = guardians_fixed.replace("[","")
+    guardians_fixed = guardians_fixed.replace("]", "")
+    guardians_fixed = guardians_fixed.replace("'", "")
+    guardians_fixed = guardians_fixed.replace("'", "")
+
     
     print("*" * 60)
     print(f"Team: {team_name_bandits}")
     print(f"\nThere are {num_players} players on the team")
     print(f"There are {len(num_exper)} experienced players and {len(num_inexper)} inexperienced players")
     print(f"The average height on the team is: {avg_height}")
-    print(f"\nThe names of the players are: {names}")
-    print(f"The guardians on the players are: {guardians}\n\n")
+    print("\nThe names of the players are: \n{}".format(", ".join(names)))
+    print("\nThe players guardians names are: ")
+    print(guardians_fixed)
 
     print("""
     Please select an option:
@@ -226,6 +242,8 @@ def select_team_3(warriors):
     names = []
     guardians = []
     team_name_warriors = TEAMS[2]
+   
+    
 
     for key in warriors:
         if key["experience"] == True:
@@ -245,14 +263,20 @@ def select_team_3(warriors):
     sum_height = sum(height)
     avg_height = round(sum_height / 6, 2)
 
-    
+    guardians_fixed = str(guardians)
+    guardians_fixed = guardians_fixed.replace("[","")
+    guardians_fixed = guardians_fixed.replace("]", "")
+    guardians_fixed = guardians_fixed.replace("'", "")
+    guardians_fixed = guardians_fixed.replace("'", "")
+
     print("*" * 60)
     print(f"Team: {team_name_warriors}")
     print(f"\nThere are {num_players} players on the team")
     print(f"There are {len(num_exper)} experienced players and {len(num_inexper)} inexperienced players")
     print(f"The average height on the team is: {avg_height}")
-    print(f"\nThe names of the players are: {names}")
-    print(f"The guardians on the players are: {guardians}\n\n")
+    print("\nThe names of the players are: \n{}".format(", ".join(names)))
+    print("\nThe players guardians names are: ")
+    print(guardians_fixed)
 
     print("""
     Please select an option:
@@ -316,7 +340,10 @@ def main():
 
 
 if __name__ == "__main__":
+    clean_data()
+    assign_team()
     main()
+
 
 
 
